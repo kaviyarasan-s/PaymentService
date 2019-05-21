@@ -7,9 +7,10 @@
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script>
 	$(document).ready(function() {
-		
+		var x=${returnUrl};
+		console.log(x);
 		$("#acountnumber").blur(function() {
-			$("#accounterr").append("");
+			$("#accounterr").empty();
 			$.ajax({
 				url : 'PaymentServlet',
 				type : 'post',
@@ -19,7 +20,7 @@
 				},
 				success : function(data) {
 					if (data == "Invalid Account number") {
-						$("#accounterr").append("<p style='color:red;'>"+data+"</p>");
+						$("#accounterr").html("<p style='color:red;'>"+data+"</p>");
 					} else {
 						$('#accountbalance').val(data);
 					}
@@ -29,8 +30,10 @@
 
 		});
 
+		
+		
 		$("#paymentamount").blur(function() {
-			$("#paymentamounterr").append("");
+			$("#paymentamounterr").empty();
 			var paymentAmount = $("#paymentamount").val();
 			var accountBalance = $('#accountbalance').val();
 			if (paymentAmount > 0) {
@@ -39,10 +42,10 @@
 					$("#remainingamount").val(remainingBal);
 						
 				} else {
-					$("#paymentamounterr").append("<p style='color:red;'>Enter less than or equal to your accout balance</p>");
+					$("#paymentamounterr").html("<p style='color:red;'>Enter less than or equal to your accout balance</p>");
 				}
 			} else {
-				$("#paymentamounterr").append("<p style='color:red;'>Enter amount greater than zero</p>");
+				$("#paymentamounterr").html("<p style='color:red;'>Enter amount greater than zero</p>");
 			}
 
 			
